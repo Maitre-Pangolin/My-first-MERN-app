@@ -80,7 +80,7 @@ First run with form submit, data is lost somewhere , an entry is created on the 
 Data lost before reaching the server empty object in post routes
 Wrong implementation on my side of the createPost actions. Forgot to pass the data in the function.   
 
-Weird that we can actually posts something on MongoDb without the fields, think about enforcing model , (server-side).
+> Weird that we can actually posts something on MongoDb without the fields, think about enforcing model , (server-side).
 
 END OF FIRST VIDEO - Stop for today
 
@@ -89,3 +89,24 @@ END OF FIRST VIDEO - Stop for today
 ---
 
 ## First Session
+
+Project finally on Github after publishing my MongoDB credentials twice like the genius I am. Dotenv was added to the project to pass credentials as env variable (but I still managed to publish my .env because I don't know how to write a path properly).
+
+[**Project Part 2**] (https://www.youtube.com/watch?v=aibtHnbeuio)
+
+Modified Posts components to display all the posts, passing post from redux state (useSelector) as props to Post components
+
+Modifying Post component error in importing material-ui icons. Turns out it's another package, not installed in the first video I guess it will be done later in this one.
+
+> Improvement idea , deal with user input too large a file
+
+>Random thought , need to learn / read / watch about caching .
+
+Card component created , a few comments : 
+* tags are not separated , always one element , need to be splitted by space and or commas and trimmed.
+* Message displayed instead of title , message not considered when fixed.
+  
+
+> Using [SVG Background](https://www.svgbackgrounds.com/) a website to generate or use SVG background
+
+Stopping point for this session maybe one later altough we're going to Le chasse-pinte microbrew so it might be it for today.
