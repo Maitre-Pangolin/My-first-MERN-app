@@ -110,3 +110,59 @@ Card component created , a few comments :
 > Using [SVG Background](https://www.svgbackgrounds.com/) a website to generate or use SVG background
 
 Stopping point for this session maybe one later altough we're going to Le chasse-pinte microbrew so it might be it for today.
+
+## 2021-08-10
+
+---
+
+## First Session
+
+Implemented back-end logic for updating posts
+
+Now working on front-end update logic, posts information and id should be shared between Post and Form components, first approahc in pure React (no Redux) , we will use the higher order components to share the information in this case App. This will be refactored to use Redux. 
+
+This force us to use props drilling , sharing state between components force us to go back to the higher components that includes the two former, and to drill props from the higher components to the one were we want to share state. Viable for small scale app with shallow tree structure, become very messy for bigger project.
+
+Updated the following to include our update functionnality : Forms (comp), Posts (comp), Post (comp) , post api (add patch) , redux actions, redux reducers.
+
+useEffect in Form to change the form data when the shared (top level in App) currentID is modified.
+
+> should add a default image when none is provided by user, currently throwing warning
+
+Post Date creation seems to bug, just created a post , and app says it was created 18 hours ago. 🔥
+
+Try to restart server and client, server crash due to mongoose import in controller file. Fixed, was imported as a named import instead of a default : *import {Mongoose} from ''mongoose ==> *import Mongoose from 'mongoose'* 🔥
+
+After restart post date seems better altough after creation the posts already says it was created 2 minutes ago. Might be something wrong with the moment library or how we're using it in this project.
+
+> Investigate date offset 🕔
+
+Post modification functionnality seems to work properly , in the video he needs to manually refresh his page to see post modification, works immediatly in my case might be due to React updates. Let's see..
+
+Just realized that handleSubmit() is called by the button with *type='submit'* without the need to define a onClick=handleSubmit, implicit reference
+Implemented clear method on form.
+
+Big debug session in the video because his post are not updating, weird fix on App useEffect and on his mongoose import in controllers. Not working. (It's working fine on my side) 
+
+Turns out he add a typo, he added a bunch off stuff like the useEffect on App and added the _id to the post object on the action, I don't think it is necessary as we provide (id,post) post without_id to the patch request. Wonder of the object merging works in mongoose/MongoDB , need to check in Mongo/Mongoose class.
+Rectification he did this in the controller section (back-end side).
+
+Modified a useless destructuration renaming he made us write in controllers, works the same, cleaner.
+
+> [All wonders of destructuration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+> 
+```javascript
+let a ='foo'
+let b = 'bar'
+[a,b]=[b,a]
+//Wonderfull variable exchange
+```
+
+Stopping point for this session prior to delete functionnality implementation. Going to try out outdoor gear prior to Lac-St Jean 4 days biking trip and eat.
+
+---
+
+## Second Session
+
+Delete functionnality implemented succesfully.
+
