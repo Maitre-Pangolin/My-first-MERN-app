@@ -166,3 +166,38 @@ Stopping point for this session prior to delete functionnality implementation. G
 
 Delete functionnality implemented succesfully.
 
+Adding a like functionnality, the new implemented version feels not really optimized as we are doing two req to the db :
+
+``` javascript
+export const likePost = async (req,res) =>{
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+  return res.status(404).send("No post with that id");
+  const post = await PostMessage.findById(id)
+  const updatedPost = await PostMessage.findByIdAndUpdate(id,{likeCount: post.likeCount+1},{new:true})
+  res.json(updatedPost)
+}
+```
+
+I think there is a way to directly increment the field using a $inc operator in mongo/mongoose calls but I'm not sure of the syntax. 
+
+> Verify mongo call
+
+Bug after implementing Like functionnality 🔥. Getting a 404 . Typo in route , i forgot a ':' before the route id params in my routes.js file. Still bugging . Forgot to include the controller in the route ... 🤦‍♂️
+![test](https://media.giphy.com/media/d3YHKs8wwYfce0PS/giphy.gif)
+
+Added a placeholder image (extra, not in video).
+
+Finally we are fixing the cards message/title and most importantly the fricking hashtag list that was bugging me from the beggining 
+
+![thanks](https://c.tenor.com/qptJAAqoow8AAAAC/thanks-thank-you.gif)
+
+GIF integration in Markdown is a dangerous power ...
+
+
+Wanted to add white space on like button, turns out it was a mess all html entities like &nbsp do not render on my side, cannot find an good answer why it's not working (working on the video) lot of different work around on stack overflow but no real explanation.Decided to use whiteSpace:'pre' styling and to ass space in jsx {'  '}
+
+Session cut short by secondary screen battery dying on me 😢. => Hike and beer on the way, more tomorrow.
+
+
+

@@ -14,7 +14,8 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
+import placeHolder from "../../../images/placeholder.jpg";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
@@ -22,7 +23,10 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={classes.card}>
-      <CardMedia className={classes.media} image={post.selectedFile} />
+      <CardMedia
+        className={classes.media}
+        image={post.selectedFile ? post.selectedFile : placeHolder}
+      />
       <div className={classes.overlay}>
         <Typography variant="h6">{post.creator}</Typography>
         <Typography variant="body2">
@@ -42,20 +46,29 @@ const Post = ({ post, setCurrentId }) => {
         <Typography variant="body2" color="textSecondary">
           {post.tags.map((tag) => `#${tag}`)}
         </Typography>
-      </div>
+      </div>{" "}
+      <Typography className={classes.title} variant="h5" gutterBottom>
+        {post.title}
+      </Typography>
       <CardContent>
-        {" "}
-        <Typography className={classes.title} variant="h5" gutterBottom>
-          {post.title}
-        </Typography>
-        <Typography className={classes.title} variant="h5" gutterBottom>
+        <Typography
+          className={classes.title}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          style={{ whiteSpace: "pre" }}
+          color="primary"
+          onClick={() => dispatch(likePost(post._id))}
+        >
           <ThumbUpAltIcon fontSize="small" />
-          Like {post.likeCount}
+          {"  "} Like {post.likeCount}
         </Button>
         <Button
           size="small"
