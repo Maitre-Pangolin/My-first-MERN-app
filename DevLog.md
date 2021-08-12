@@ -1,8 +1,12 @@
+
+# DEVLOG
+
 ## 2021-08-09
 
 ---
 
-## First Session
+### First Session
+
   Following : https://www.youtube.com/watch?v=ngc9gnGgUdA
 
   First day, app structure creation
@@ -25,7 +29,7 @@ First route creation for posts , validation that server works properly. Good sto
 
 ---
 
-## Second Session
+### Second Session
 
 Implement server side folder structure for scalability, Routes / Controllers / Models folders.
 
@@ -50,7 +54,7 @@ Will start Redux integration, this is my first use of Redux altough I get the ge
 
 ---
 
-## Third Session
+### Third Session
 
 Redux initialization not really explained , needs to follow dedicated course on ui.dev  
  `const store = createStore(reducers,compose(applyMiddleware(thunk)))`
@@ -78,7 +82,7 @@ Form creation, using material-ui components, using react-file-base allowing to l
 
 First run with form submit, data is lost somewhere , an entry is created on the db but it's empty as if no model is used.
 Data lost before reaching the server empty object in post routes
-Wrong implementation on my side of the createPost actions. Forgot to pass the data in the function.   
+Wrong implementation on my side of the createPost actions. Forgot to pass the data in the function.
 
 > Weird that we can actually posts something on MongoDb without the fields, think about enforcing model , (server-side).
 
@@ -88,7 +92,7 @@ END OF FIRST VIDEO - Stop for today
 
 ---
 
-## First Session
+### First Session
 
 Project finally on Github after publishing my MongoDB credentials twice like the genius I am. Dotenv was added to the project to pass credentials as env variable (but I still managed to publish my .env because I don't know how to write a path properly).
 
@@ -99,23 +103,22 @@ Modified Posts components to display all the posts, passing post from redux stat
 Modifying Post component error in importing material-ui icons. Turns out it's another package, not installed in the first video I guess it will be done later in this one.
 
 > Improvement idea , deal with user input too large a file
-
 >Random thought , need to learn / read / watch about caching .
 
-Card component created , a few comments : 
+Card component created , a few comments :
+
 * tags are not separated , always one element , need to be splitted by space and or commas and trimmed.
 * Message displayed instead of title , message not considered when fixed.
   
-
 > Using [SVG Background](https://www.svgbackgrounds.com/) a website to generate or use SVG background
 
 Stopping point for this session maybe one later altough we're going to Le chasse-pinte microbrew so it might be it for today.
 
-## 2021-08-10
+## 2021-08-11
 
 ---
 
-## First Session
+### First Session
 
 Implemented back-end logic for updating posts
 
@@ -131,7 +134,7 @@ useEffect in Form to change the form data when the shared (top level in App) cur
 
 Post Date creation seems to bug, just created a post , and app says it was created 18 hours ago. 🔥
 
-Try to restart server and client, server crash due to mongoose import in controller file. Fixed, was imported as a named import instead of a default : *import {Mongoose} from ''mongoose ==> *import Mongoose from 'mongoose'* 🔥
+Try to restart server and client, server crash due to mongoose import in controller file. Fixed, was imported as a named import instead of a default : *import {Mongoose} from 'mongoose' ==> *import Mongoose from 'mongoose'* 🔥
 
 After restart post date seems better altough after creation the posts already says it was created 2 minutes ago. Might be something wrong with the moment library or how we're using it in this project.
 
@@ -150,7 +153,7 @@ Rectification he did this in the controller section (back-end side).
 Modified a useless destructuration renaming he made us write in controllers, works the same, cleaner.
 
 > [All wonders of destructuration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
-> 
+
 ```javascript
 let a ='foo'
 let b = 'bar'
@@ -162,7 +165,7 @@ Stopping point for this session prior to delete functionnality implementation. G
 
 ---
 
-## Second Session
+### Second Session
 
 Delete functionnality implemented succesfully.
 
@@ -199,5 +202,23 @@ Wanted to add white space on like button, turns out it was a mess all html entit
 
 Session cut short by secondary screen battery dying on me 😢. => Hike and beer on the way, more tomorrow.
 
+## 2021-08-12
 
+---
 
+### First Session
+
+Resume video, section on mobile responsivness unconclusive, the following piece of code for material ui styling had no effect, should read doc on breakpoint.
+
+```javascript
+  [theme.breakpoints.down("sm")]: {
+    mainContainer: {
+      flexDirection: "column-reverse",
+    }, 
+```
+
+Refactoring redux action as constant to have a less error-prone code. A typo in action declaration would now raise an error (not the case with strings).
+
+Adding environnment variable with dotenv, already did it the first day. A good idea is to put a .env.example to publish on github to let people know what they need to have in order to run the project.
+
+Deployement process in the video , back-end on heroku , front-end on netlify. I don't like it I want to deploy the whole app on heroku and have it build and serve the react app. Let's do it.
