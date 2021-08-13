@@ -228,7 +228,15 @@ Just realized that we set up a proxy and we never used it ...
 ![why](https://media.giphy.com/media/2xwWl4iiaR0UKIiiRQ/giphy.gif)
 
 There is no __dirname & filename in ES6 module import, oh joy .......
-Workaround :
+
+Worked on Codecademy for a while, back at it tomorrow, now it's time for shooting stars !
+## 2021-08-13
+
+---
+
+### First Session
+
+Workaround for the __dirname:
 
 ```javascript
 import path from "path";
@@ -259,3 +267,45 @@ Second deploy : build failed but this time, it has at least started the build pr
 ```
 
 Built fail again but I found  a typo in the server build script.
+
+Built completed but app crashing. Forgot to add my mongo connection_url in Heroku env. Better but now the heroku ip is not allowed on my MongoDB cluster.
+
+Wifi down ... No access to the router 😭
+
+Just allow access for any IP on my cluster not the best solution but should work for now.
+
+**heroku restart** to restart dyno without a new build.
+
+It woooooooorks !
+
+![celebrate](https://media.giphy.com/media/35HTaxVJWzp2QOShct/giphy.gif)
+
+
+[The proper way to set up heroku / MongoDB connection would be to use add-on or paying options in heroku to provide static IPs.](https://www.mongodb.com/developer/how-to/use-atlas-on-heroku/)
+```
+Configuring Heroku IP addresses in Atlas
+We have our cluster up and running and our app is deployed to Heroku!
+
+To get us through the tutorial, we initially configured our cluster to accept connections from any IP address. Ideally you would like to restrict access to only your application, and there are a few ways to do this on Heroku.
+
+The first way is to use an add-on to provide a static outbound IP address for your application that you can use to restrict access in Atlas. You can find some listed here:
+
+https://elements.heroku.com/addons/categories/network
+
+Another way would be to use Heroku Private Spaces and use the static outbound IPs for your space. This is a more expensive option, but does not require a separate add-on.
+```
+
+What I got from this process, to deploy a project server-client on heroku , the server package.json should be in the root , (top-level). the build script seems to be called by heroku ,building the react app to be served.
+
+[For the Procfile / start script explanation :](https://devcenter.heroku.com/articles/deploying-nodejs#build-your-app-and-run-it-locally)
+
+```
+
+Specifying a start script
+To determine how to start your app, Heroku first looks for a Procfile. If no Procfile exists for a Node.js app, we will attempt to start a default web process via the start script in your package.json.
+```
+
+
+[Explanation on build process from Heroku](https://devcenter.heroku.com/articles/nodejs-support#build-behavior). It does run the build script from package.json , possibilit to run pre and post build script.
+
+I now realized that we should not need CORS authorization for this project as we're serving our client. Let's try to remove it.
