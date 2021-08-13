@@ -246,3 +246,5 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 ```
+
+First deploy on heroku failed, I'm guessing I have to work around with the Procfile and the package.json from the server.
