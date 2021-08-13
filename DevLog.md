@@ -257,3 +257,5 @@ Second deploy : build failed but this time, it has at least started the build pr
   }
 
 ```
+
+Built fail again but I found  a typo in the server build script.
