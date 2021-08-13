@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server/index.js",
-    "build": "cd client && npm i && run build"
+    "build": "cd client && npm i && npm run build"
   },
   "engines": {
     "node": "14.15.4"
