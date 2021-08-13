@@ -308,4 +308,4 @@ To determine how to start your app, Heroku first looks for a Procfile. If no Pro
 
 [Explanation on build process from Heroku](https://devcenter.heroku.com/articles/nodejs-support#build-behavior). It does run the build script from package.json , possibilit to run pre and post build script.
 
-I now realized that we should not need CORS authorization for this project as we're serving our client. Let's try to remove it.
+I now realized that we should not need CORS authorization for this project as we're serving our client. Let's try to remove it.==> It works wihtout it !
