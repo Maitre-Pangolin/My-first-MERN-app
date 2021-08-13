@@ -248,3 +248,12 @@ app.get("*", (req, res) => {
 ```
 
 First deploy on heroku failed, I'm guessing I have to work around with the Procfile and the package.json from the server.
+Second deploy : build failed but this time, it has at least started the build process. I will try to specify the engine version in my package.json
+
+```json
+
+ "engines": {
+    "node": "14.15.4"
+  }
+
+```
