@@ -222,3 +222,27 @@ Refactoring redux action as constant to have a less error-prone code. A typo in 
 Adding environnment variable with dotenv, already did it the first day. A good idea is to put a .env.example to publish on github to let people know what they need to have in order to run the project.
 
 Deployement process in the video , back-end on heroku , front-end on netlify. I don't like it I want to deploy the whole app on heroku and have it build and serve the react app. Let's do it.
+
+Just realized that we set up a proxy and we never used it ...
+
+![why](https://media.giphy.com/media/2xwWl4iiaR0UKIiiRQ/giphy.gif)
+
+There is no __dirname & filename in ES6 module import, oh joy .......
+Workaround :
+
+```javascript
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url)); // equivalent to __dirname in CommonJS import
+```
+
+Added static serve capability to the index.js file of the server :
+
+```javascript
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+```
