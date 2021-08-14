@@ -309,3 +309,20 @@ To determine how to start your app, Heroku first looks for a Procfile. If no Pro
 [Explanation on build process from Heroku](https://devcenter.heroku.com/articles/nodejs-support#build-behavior). It does run the build script from package.json , possibilit to run pre and post build script.
 
 I now realized that we should not need CORS authorization for this project as we're serving our client. Let's try to remove it.==> It works wihtout it !
+
+
+---
+
+### Second Session
+
+[Going to learn about authentification , yeaaaaaaaaaaaaaaaah !](https://www.youtube.com/watch?v=LKlO8vLvUao&t=2s)
+
+Supposes to learn :
+* JWT
+* OAuth
+* Google Auth
+
+Created Layout for Home and Auth Components, refactor app to use Home components and set up of react-router-dom.
+
+Stop for today, bike preparation on the way. Back in 4 days.
+
