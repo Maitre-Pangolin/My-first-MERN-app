@@ -142,7 +142,6 @@ After restart post date seems better altough after creation the posts already sa
 
 Post modification functionnality seems to work properly , in the video he needs to manually refresh his page to see post modification, works immediatly in my case might be due to React updates. Let's see..
 
-Just realized that handleSubmit() is called by the button with *type='submit'* without the need to define a onClick=handleSubmit, implicit reference
 Implemented clear method on form.
 
 Big debug session in the video because his post are not updating, weird fix on App useEffect and on his mongoose import in controllers. Not working. (It's working fine on my side) 
@@ -325,4 +324,48 @@ Supposes to learn :
 Created Layout for Home and Auth Components, refactor app to use Home components and set up of react-router-dom.
 
 Stop for today, bike preparation on the way. Back in 4 days.
+
+## 2021-08-19
+
+---
+
+### First Session
+
+Back to it after a wonderful biking trip. We were implementing authentification capability.
+
+Created Auth form Component with dedicated Input component to improve code reusability. Sign Up and Sign In mode in one component use of ternary and && (instead of a?b:null)
+
+Only visual aspect and pure front-end function implemented , no connection to back-end yet. Guess will be using JWT later.
+
+Moving on to Google Oauth implementation.
+
+Setting up a new project on GCP and creating a OAuth consent screen.
+
+Redirect URI issue when testing google connect for first time
+
+Fixed by cleaning cookies.
+
+Learn the operator ?. :
+
+```javascript
+const a=obj?.property // Wont throw an errror fi obj is undefined
+```
+
+Dispatching an auth action :
+
+``` javascript
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj; // (Operator ?. allow to access properties but wont throw an error if object is undefined)
+    const token = res?.tokenId;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  ```
+Implemented Auth reducers and full login and logout flow.
+
+Wanted to commit and push but my google Client ID is in plain text, hoping we will go through our server to retrieve it from environment variable ...
 
