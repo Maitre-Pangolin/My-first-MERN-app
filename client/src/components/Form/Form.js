@@ -8,17 +8,15 @@ import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-  const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
-  );
+  const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
   });
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -28,43 +26,36 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     }
     clear();
   };
   const clear = () => {
     setCurrentId(null);
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
       selectedFile: "",
     });
   };
+
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" alignItems="center">
+          Please Sign-In to create your own memories and like others memories
+        </Typography>
+      </Paper>
+    );
+  }
+
   return (
     <Paper className={classes.paper}>
-      <form
-        autoComplete="off"
-        noValidate
-        className={`${classes.root} ${classes.form}`}
-        onSubmit={handleSubmit}
-      >
-        <Typography variant="h6">
-          {currentId ? "Editing" : "Creating"} a Memory
-        </Typography>
-        <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-        />
+      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+        <Typography variant="h6">{currentId ? "Editing" : "Creating"} a Memory</Typography>
         <TextField
           name="title"
           variant="outlined"
@@ -79,9 +70,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Message"
           fullWidth
           value={postData.message}
-          onChange={(e) =>
-            setPostData({ ...postData, message: e.target.value })
-          }
+          onChange={(e) => setPostData({ ...postData, message: e.target.value })}
         />
         <TextField
           name="tags"
@@ -89,36 +78,15 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Tags"
           fullWidth
           value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(",") })
-          }
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(",") })}
         />
         <div className={classes.fileInput}>
-          <Filebase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
-          />
+          <Filebase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         </div>
-        <Button
-          className={classes.buttonSubmit}
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-          fullWidth
-        >
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>
           Submit
         </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="small"
-          onClick={clear}
-          fullWidth
-        >
+        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>
           Clear
         </Button>
       </form>

@@ -369,3 +369,63 @@ Implemented Auth reducers and full login and logout flow.
 
 Wanted to commit and push but my google Client ID is in plain text, hoping we will go through our server to retrieve it from environment variable ...
 
+## 2021-08-20
+
+---
+
+### First Session
+
+Implementing JWT login.
+
+Added a form state to Auth comp, updated on onChange through dynamic handleChange, and implementing auth redux actions.
+
+signin action will require a backend end point to implement logic on the server.
+
+Moving to back end to implement the routes, controllers & user Model.
+
+Adding user route, and user controller. Using bcrypt package for password hashing
+
+> Should try to change sematic color in VSCode to have my object keys a different color 
+
+Signin and signup controller created using bcrypt and jwt.
+
+Creating an auth middleware. It checks that a token is present in hte req headers , and process the token Custom or Google to add a userId to the http request before sending it to the next middleware/controller.
+
+Now modifying the like controlllers to take into account the id of the user (you can only like a post once).
+
+Changing post models likeCount to likes , now not just a simple counter but an array of people id who liked the post.
+
+I wish we would write unit test for our back-end, but it's not gonna happen ... I feel we are way too dependant of our front to debug our back-end. Any way lunch-time.
+
+
+
+### Second Session
+
+Implementing front-end logic to use JWT
+
+Adding API calls.
+
+Debugging on server side, turns out I forgot to send a response on my sign-up route , freaking genius. Then spent some time not understanding that I had already created a user with this email adress.. Everything seems to work now.
+
+Sign up and sign in working as it should. Persistent logging with Local storage.
+
+Add axios interceptor in front-end to add Authorization to every req.
+
+Modified post creation to include automatic name filling from session storage (removed from Form) added on Posts models.
+
+Modified Post components to display name instead of creator( now the user _id) and createPost route and createPost redux action
+
+Modified form to prevent post submit when not logged in.
+
+Adding automatic logout on token expiry
+
+
+Need to fix the like count display. Created a subcomponents in the posts componentes to wrap like display logic.
+
+Modify the Form component with conditionnal on user id or google id to display delete and modify button on post only for the post created by the person logged in.
+
+Adding token expiry log out.
+
+End of video, deployement on Zeet, I'm not convinced by the approach, and he is leaving a lots of sensitive informations in plain text and pushing this on github ...
+
+I'll push the project with the google clientID in plain text as it's apparently not too critical. Only works for allowed routes anyway.
